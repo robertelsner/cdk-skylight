@@ -62,6 +62,9 @@
     "aws-cdk-lib": "^2.32.0",
     "constructs": "^10.0.5"
   },
+  "dependencies": {
+    "@aws-cdk/aws-lambda-python-alpha": "2.32.0-alpha.0"
+  },
   "keywords": [
     "cdk"
   ],

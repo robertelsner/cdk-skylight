@@ -1385,6 +1385,7 @@ The properties for the AwsManagedMicrosoftAd class.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#cdk-skylight.authentication.IAwsManagedMicrosoftAdProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | The VPC to use, must have private subnets. |
+| <code><a href="#cdk-skylight.authentication.IAwsManagedMicrosoftAdProps.property.adminRotationInDays">adminRotationInDays</a></code> | <code>number</code> | Rotate admin password before expiration. |
 | <code><a href="#cdk-skylight.authentication.IAwsManagedMicrosoftAdProps.property.configurationStore">configurationStore</a></code> | <code>cdk-skylight.authentication.IAwsManagedMicrosoftAdParameters</code> | The configuration store to save the directory parameters (After deployed). |
 | <code><a href="#cdk-skylight.authentication.IAwsManagedMicrosoftAdProps.property.createWorker">createWorker</a></code> | <code>boolean</code> | Create Domain joined machine to be used to run Powershell commands to that directory. |
 | <code><a href="#cdk-skylight.authentication.IAwsManagedMicrosoftAdProps.property.domainName">domainName</a></code> | <code>string</code> | The domain name for the Active Directory Domain. |
@@ -1404,6 +1405,19 @@ public readonly vpc: IVpc;
 - *Type:* aws-cdk-lib.aws_ec2.IVpc
 
 The VPC to use, must have private subnets.
+
+---
+
+##### `adminRotationInDays`<sup>Optional</sup> <a name="adminRotationInDays" id="cdk-skylight.authentication.IAwsManagedMicrosoftAdProps.property.adminRotationInDays"></a>
+
+```typescript
+public readonly adminRotationInDays: number;
+```
+
+- *Type:* number
+- *Default:* 15
+
+Rotate admin password before expiration.
 
 ---
 

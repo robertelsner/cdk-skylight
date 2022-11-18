@@ -8,6 +8,9 @@ const project = new awscdk.AwsCdkConstructLibrary({
   name: 'cdk-skylight',
   repositoryUrl: 'https://github.com/cdklabs/cdk-skylight.git',
   peerDeps: ['constructs', 'aws-cdk-lib'],
+  deps: [
+    '@aws-cdk/aws-lambda-python-alpha@2.32.0-alpha.0',
+  ],
   gitignore: ['.DS_Store'],
   autoApproveUpgrades: true,
   autoMerge: true,

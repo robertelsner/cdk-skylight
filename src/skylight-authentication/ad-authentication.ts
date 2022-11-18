@@ -12,13 +12,18 @@
  */
 
 // Imports
+import * as path from 'path';
+import * as pyLambda from '@aws-cdk/aws-lambda-python-alpha';
 import {
   aws_directoryservice as mad,
   aws_ec2 as ec2,
+  aws_iam as iam,
   aws_route53resolver as r53resolver,
   aws_secretsmanager as secretsmanager,
+  aws_lambda as lambda,
   aws_ssm,
   CfnOutput,
+  Duration,
   Fn,
   Stack,
 } from 'aws-cdk-lib';
@@ -73,6 +78,12 @@ export interface IAwsManagedMicrosoftAdProps {
    * @default - 'true'.
    */
   createWorker?: boolean;
+
+  /**
+   * Rotate admin password before expiration
+   * @default - 15
+   */
+  adminRotationInDays?: number;
 }
 
 export enum AwsManagedMicrosoftConfigurationStoreType {
@@ -212,6 +223,32 @@ export class AwsManagedMicrosoftAd extends Construct {
         },
       },
     );
+
+    const rotationFn = new pyLambda.PythonFunction(this, 'rotationFunction', {
+      runtime: lambda.Runtime.PYTHON_3_9,
+      index: 'lambda_function.py',
+      entry: path.join(__dirname, 'lambda-adAdmin-rotation'),
+      environment: {
+        DIRECTORY_ID: this.microsoftAD.ref,
+      },
+    });
+
+    let actualRotationInDays: number;
+
+    actualRotationInDays = this.props.adminRotationInDays ?? 15;
+    if (actualRotationInDays > 41) {
+      actualRotationInDays = 41;
+    } else if (actualRotationInDays < 0) {
+      actualRotationInDays = 15;
+    }
+
+    this.secret.addRotationSchedule('RotationSchedule', {
+      rotationLambda: rotationFn,
+      automaticallyAfter: Duration.days(actualRotationInDays),
+    });
+
+    this.secret.grantRead(rotationFn);
+    rotationFn.grantInvoke(new iam.ServicePrincipal('secretsmanager.amazonaws.com'));
 
     new CfnOutput(this, 'mad-dns-ips', {
       value: `${Fn.join(',', this.microsoftAD.attrDnsIpAddresses)}`,
