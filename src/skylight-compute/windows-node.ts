@@ -177,7 +177,7 @@ export class DomainWindowsNode extends Construct {
         securityGroup: securityGroup,
         vpcSubnets: this.vpc.selectSubnets({
           subnetType: props.usePrivateSubnet
-            ? ec2.SubnetType.PRIVATE_WITH_NAT
+            ? ec2.SubnetType.PRIVATE_WITH_EGRESS
             : ec2.SubnetType.PUBLIC,
           onePerAz: true,
         }),
@@ -214,7 +214,7 @@ export class DomainWindowsNode extends Construct {
         securityGroup: securityGroup,
         vpcSubnets: this.vpc.selectSubnets({
           subnetType: props.usePrivateSubnet
-            ? ec2.SubnetType.PRIVATE_WITH_NAT
+            ? ec2.SubnetType.PRIVATE_WITH_EGRESS
             : ec2.SubnetType.PUBLIC,
           onePerAz: true,
         }),

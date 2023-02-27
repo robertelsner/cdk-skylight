@@ -3,7 +3,7 @@ const { awscdk } = require('projen');
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Dudu (David) Twizer',
   authorAddress: 'dudut@amazon.com',
-  cdkVersion: '2.32.0',
+  cdkVersion: '2.64.0',
   defaultReleaseBranch: 'main',
   name: 'cdk-skylight',
   repositoryUrl: 'https://github.com/cdklabs/cdk-skylight.git',

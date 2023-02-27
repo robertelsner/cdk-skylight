@@ -184,7 +184,7 @@ export class AwsManagedMicrosoftAd extends Construct {
     } else {
       subnets =
         props.vpc.selectSubnets({
-          subnetType: ec2.SubnetType.PRIVATE_WITH_NAT,
+          subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
         }) ??
         props.vpc.selectSubnets({
           subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
@@ -329,7 +329,7 @@ export class AwsManagedMicrosoftAdR53 extends AwsManagedMicrosoftAd {
     } else {
       subnets =
         props.vpc.selectSubnets({
-          subnetType: ec2.SubnetType.PRIVATE_WITH_NAT,
+          subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
         }) ??
         props.vpc.selectSubnets({
           subnetType: ec2.SubnetType.PRIVATE_ISOLATED,

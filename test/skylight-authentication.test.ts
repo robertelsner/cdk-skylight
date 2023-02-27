@@ -14,7 +14,7 @@ const vpc = new aws_ec2.Vpc(stack, 'vpc', {});
 const vpcWithCustomSubnets = new aws_ec2.Vpc(stack, 'vpcwithsub', {
   maxAzs: 2,
   subnetConfiguration: [
-    { name: 'Data', subnetType: SubnetType.PRIVATE_WITH_NAT },
+    { name: 'Data', subnetType: SubnetType.PRIVATE_WITH_EGRESS },
     { name: 'Public', subnetType: SubnetType.PUBLIC },
   ],
 });
@@ -110,7 +110,7 @@ test('authentication', () => {
     'domainWindowsNode.instance.instance.subnetId',
     vpc.selectSubnets({
       availabilityZones: [Stack.of(stack).availabilityZones[0]],
-      subnetType: SubnetType.PRIVATE_WITH_NAT,
+      subnetType: SubnetType.PRIVATE_WITH_EGRESS,
     }).subnetIds[0],
   );
 });

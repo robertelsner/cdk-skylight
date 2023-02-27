@@ -105,7 +105,7 @@ export class FSxWindows extends Construct {
 
     const subnets = this.props.vpc.selectSubnets({
       subnetType: props.fileSystemInPrivateSubnet
-        ? ec2.SubnetType.PRIVATE_WITH_NAT
+        ? ec2.SubnetType.PRIVATE_WITH_EGRESS
         : ec2.SubnetType.PUBLIC,
     }).subnetIds;
 
